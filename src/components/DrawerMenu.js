@@ -4,16 +4,24 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
 function DrawerMenu(props) {
-    function clickedNewGame (event) {
-        const adjustedEvent = {'key':'NEW-GAME'}
-        props.handleKeyPress(adjustedEvent)
+    const clickedNewGame = (param) => (event) => {
+        
+        if (param === 'New Game'){
+          const adjustedEvent = {'key':'NEW-GAME'}
+          props.handleKeyPress(adjustedEvent)
+        }
+        else if (param === 'About'){
+            // DO SOMETHING ELSE
+        }
+
     }
+    
     return (
         <Box >
        
             <List>
             {['About', 'New Game'].map((text, index) => (
-              <ListItem button key={index} onClick={clickedNewGame}>
+              <ListItem button key={index} onClick={clickedNewGame(text)}>
                 <ListItemText sx={{marginX:8, marginY:2, display:'flex', justifyContent: 'center'}} primary={text}/>
               </ListItem>))}
             </List>
