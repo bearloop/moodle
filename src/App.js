@@ -5,8 +5,10 @@ import isValidWord from './utils/IsValidWord'
 import PopUp from './utils/PopUp';
 import newRandomWord from './utils/NewRandomWord'
 import starting_round from './utils/Start'
+import alphabet from './utils/AlphaBet'
 import onDelete from './utils/ToDelete'
 import keysClicked from './utils/OnKeyPress'
+import updateChroma from './utils/UpdateChroma';
 
 // React, CSS and MUI imports
 import { ThemeProvider } from '@mui/material/styles';
@@ -23,6 +25,9 @@ function App() {
   // --------------------------------------------------------------------------------------------------------
   // Summary for each round
   const [summary, setSummary] = useState(starting_round())
+
+  // Chroma refers to the background color of the keyboard keys
+  const [chroma, setChroma] = useState(alphabet())
 
   // Number for rounds / trials
   const [trial, setTrial] = useState(1)
@@ -71,6 +76,8 @@ function App() {
                 const new_game = starting_round()
                 setSummary(new_game)
                 setWord(new_game[1])
+                const new_alphabet = alphabet()
+                setChroma(new_alphabet)
             }
             else if (isl['severity']==='warning'){
                 // console.log('Inside warning', isl)
@@ -78,6 +85,9 @@ function App() {
                     setSummary(summary)
                     setTrial(trial+1)
                     setWord(summary[trial+1])
+                    // Update keyboard colour
+                    const chr = updateChroma(chroma, word, hiddenWord)
+                    setChroma(chr)
                 }
                 else{
                     setHiddenWord( newRandomWord() )
@@ -86,9 +96,11 @@ function App() {
                     setSummary(new_game)
                     setWord(new_game[1])
                     setMessage( {'severity': 'error', 'text': 'Tough luck! The hidden word was: '+hiddenWord})
+                    const new_alphabet = alphabet()
+                    setChroma(new_alphabet)
                 }
             }
-            
+
             // Open pop up
             setOpen(true)
         
@@ -103,7 +115,8 @@ function App() {
             setSummary(new_game)
             setWord(new_game[1])
             setOpenDrawer(false)
-
+            const new_alphabet = alphabet()
+            setChroma(new_alphabet)
         }
         // Handle other characters
         else if (isValid(lastEvent)) {
@@ -139,7 +152,8 @@ function App() {
                    summary={summary}
                    setSummary={setSummary}
                    trial={trial}
-                   hiddenWord={hiddenWord}/>
+                   hiddenWord={hiddenWord}
+                   chroma={chroma}/>
         </ThemeProvider>
     </div>
   );

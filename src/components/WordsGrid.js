@@ -23,6 +23,7 @@ function WordsGrid (props) {
                   setSummary={props.setSummary}
                   summary={props.summary}
                   trial={props.trial}
+                  chroma={props.chroma}
                   />
       </Box>
     )
