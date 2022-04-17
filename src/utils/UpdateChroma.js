@@ -1,5 +1,9 @@
 function updateChroma(chroma, word, hiddenWord) {
-    const newChroma = chroma
+    // console.log('Chroma',chroma)
+    // console.log('Word',word)
+    console.log('hiddenWord',hiddenWord)
+    // Create deep copy
+    const newChroma =  JSON.parse(JSON.stringify(chroma))
 
     const wordString = Object.entries(word).map(([k,v],ind)=>v).join('')
 

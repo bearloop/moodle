@@ -1,6 +1,6 @@
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import Zoom from '@mui/material/Zoom';
+import Fade from '@mui/material/Fade';
 
 function CustomPaper(props) {
 
@@ -19,27 +19,31 @@ function CustomPaper(props) {
         maxWidth:"110px",
         minWidth:"55px",
         border: '10px',
-        borderColor: '#ffffff'
+        borderColor: '#ffffff' 
       }));
   
   const colorOutcome = {'success':'#0fa641','base':'#1a1a1a','notQuite':'#d1a754'}
   
   // Time (ms)
-  const time = props.index * 250
+  const time = props.index * 200
   
-  const item = <Item elevation={10} className='outline' sx={{backgroundColor: colorOutcome[props.outcome]}}> 
+  // Item
+  const item = <Item elevation={10} className='outline' sx={{backgroundColor: colorOutcome[props.outcome], zIndex:100 }}> 
                   {props.letter}
                </Item>
-
-  const square = <Zoom in={true} style={{ transitionDelay: true ? time.toString()+'ms' : '0ms' }}>
-                    {item}
-               </Zoom>
+  
+  // Suare
+  const square = <Fade in={true} appear={true}
+                  style={{ transitionDelay: true ? time.toString()+'ms' : '0ms' }}
+                  timeout={{ appear:1200, enter: 1200, exit: 1200}} >
+                      {item}
+                 </Fade>
 
   return (
-    <>
-      {props.animation && (props.trial===props.placeholder+1) && square}
-      {!props.animation && (props.trial===props.placeholder+1) && square}
-      {(props.trial!=props.placeholder+1) && item}
+    <>      
+        {props.animation && (props.trial===props.placeholder+1) && square}
+        {!props.animation && (props.trial===props.placeholder+1) && square}
+        {(props.trial!==props.placeholder+1) && item}
      </>
   );
 }
@@ -47,4 +51,24 @@ function CustomPaper(props) {
 export default CustomPaper;
 
 
-   
+  // import "./CustomPaper.css";
+  // import { CSSTransition } from "react-transition-group";
+  // Empty item
+  // const empty = <Item elevation={10} className='outline' sx={{backgroundColor: colorOutcome['base'], zIndex:-1 }}> </Item>
+  
+
+  // const front = <CSSTransition
+  //                   in={props.animation}
+  //                   timeout={250 * props.index}
+  //                   classNames="front-face-transition"
+  //                 >
+  //                   <>
+  //                   {item}
+  //                   </>
+  //                 </CSSTransition>
+
+  // const back =  <CSSTransition
+  //                   in={!props.animation}
+  //                   timeout={2000 * props.index}
+  //                   classNames="back-face-transition"
+  //                 ></CSSTransition>

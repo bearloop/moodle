@@ -3,7 +3,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
 function PopUp(props) {
-      
+
   const handleClose = (event, reason) => {
     props.setOpen(false);
   };
