@@ -46,6 +46,9 @@ function App() {
   // Open - close drawer states
   const [openDrawer, setOpenDrawer] = useState(false)
 
+  // Animation
+  const [animation, setAnimation] = useState(true);
+
   // --------------------------------------------------------------------------------------------------------
 
   // This function handles keyboard press events and updates the "word" accordingly
@@ -78,6 +81,7 @@ function App() {
                 setWord(new_game[1])
                 const new_alphabet = alphabet()
                 setChroma(new_alphabet)
+                setAnimation(true)
             }
             else if (isl['severity']==='warning'){
                 // console.log('Inside warning', isl)
@@ -88,6 +92,7 @@ function App() {
                     // Update keyboard colour
                     const chr = updateChroma(chroma, word, hiddenWord)
                     setChroma(chr)
+                    setAnimation((prev) => !prev)
                 }
                 else{
                     setHiddenWord( newRandomWord() )
@@ -98,6 +103,7 @@ function App() {
                     setMessage( {'severity': 'error', 'text': 'Tough luck! The hidden word was: '+hiddenWord})
                     const new_alphabet = alphabet()
                     setChroma(new_alphabet)
+                    setAnimation(true)
                 }
             }
 
@@ -105,6 +111,7 @@ function App() {
             setOpen(true)
         
         }
+        // Handle new game
         else if (lastEvent === 'NEW-GAME'){
             
             setMessage({'severity':'info','text':'New game!'})
@@ -117,6 +124,7 @@ function App() {
             setOpenDrawer(false)
             const new_alphabet = alphabet()
             setChroma(new_alphabet)
+            setAnimation(true)
         }
         // Handle other characters
         else if (isValid(lastEvent)) {
@@ -153,7 +161,8 @@ function App() {
                    setSummary={setSummary}
                    trial={trial}
                    hiddenWord={hiddenWord}
-                   chroma={chroma}/>
+                   chroma={chroma}
+                   animation={animation}/>
         </ThemeProvider>
     </div>
   );

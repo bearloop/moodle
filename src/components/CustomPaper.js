@@ -1,5 +1,6 @@
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
+import Zoom from '@mui/material/Zoom';
 
 function CustomPaper(props) {
 
@@ -20,14 +21,30 @@ function CustomPaper(props) {
         border: '10px',
         borderColor: '#ffffff'
       }));
-//   console.log(letter)
+  
   const colorOutcome = {'success':'#0fa641','base':'#1a1a1a','notQuite':'#d1a754'}
+  
+  // Time (ms)
+  const time = props.index * 250
+  
+  const item = <Item elevation={10} className='outline' sx={{backgroundColor: colorOutcome[props.outcome]}}> 
+                  {props.letter}
+               </Item>
+
+  const square = <Zoom in={true} style={{ transitionDelay: true ? time.toString()+'ms' : '0ms' }}>
+                    {item}
+               </Zoom>
 
   return (
-    <Item elevation={10} className='outline' sx={{backgroundColor: colorOutcome[props.outcome]}}> 
-        {props.letter}
-    </Item> 
-    
+    <>
+      {props.animation && (props.trial===props.placeholder+1) && square}
+      {!props.animation && (props.trial===props.placeholder+1) && square}
+      {(props.trial!=props.placeholder+1) && item}
+     </>
   );
 }
+
 export default CustomPaper;
+
+
+   
