@@ -70,37 +70,30 @@ function App() {
             // Update message
             const isl = isValidWord(word, hiddenWord)
             setMessage(isl)
-            // console.log(isl)
-            
+            setOpen(false)
             if (isl['severity']==='success'){
-                // console.log('Inside success', isl)
-
                 // Last round
-                // setHiddenWord( newRandomWord() )
                 setSummary(summary)
                 setTrial(trial+1)
                 setWord(summary[trial+1])                   
                 setAnimation((prev) => !prev)
-                // Open pop up - wait 1.2 seconds
+                // Open pop up - wait 1.3 seconds
                 setTimeout(setOpen, 1300, true)
-                // Update keyboard colour // console.log('Prev', chroma) console.log('CHR',chr) console.log(chroma)
+                // Update keyboard colour
                 const chr = updateChroma(chroma, word, hiddenWord)
                 setTimeout(setChroma, 1300, chr)
 
                 // Reset game
-                // setAnimation(true)
                 setTimeout(setHiddenWord, 4000, newRandomWord())
-                // setTrial(1)
                 setTimeout(setTrial, 4000, 1)
                 setTimeout(setOpen, 4000, true)
                 const new_game = starting_round()
                 setTimeout(setSummary, 4000, new_game)
-                // setSummary(new_game)
                 setTimeout(setWord, 4000, new_game[1])
-                // setWord(new_game[1])
                 const new_alphabet = alphabet()
                 setTimeout(setChroma, 4000, new_alphabet)
             }
+
             else if (isl['severity']==='warning'){
                 // console.log('Inside warning', isl)
                 if (trial+1 < 7) {
@@ -115,18 +108,31 @@ function App() {
                     setTimeout(setChroma, 1300, chr)
                 }
                 else{
-                    setAnimation(true)
+                    // Last round
+                    // setHiddenWord( newRandomWord() )
+                    setSummary(summary)
+                    setTrial(trial+1)
+                    setWord(summary[trial])                   
+                    setAnimation(false)
+                    // Open pop up - wait 1.3 seconds
                     setMessage( {'severity': 'error', 'text': 'Tough luck! The hidden word was: '+hiddenWord})
+                    setOpen(false)
                     setTimeout(setOpen, 1300, true)
-                    setTrial(1)
-                    setHiddenWord( newRandomWord() )
+                    // Update keyboard colour // console.log('Prev', chroma) console.log('CHR',chr) console.log(chroma)
+                    const chr = updateChroma(chroma, word, hiddenWord)
+                    setTimeout(setChroma, 1300, chr)
+                    
+                    // Reset game
+                    setTimeout(setHiddenWord, 4000, newRandomWord())
+                    setTimeout(setTrial, 4000, 1)
                     const new_game = starting_round()
-                    setSummary(new_game)
-                    setWord(new_game[1])
+                    setTimeout(setSummary, 4000, new_game)
+                    setTimeout(setWord, 4000, new_game[1])
                     const new_alphabet = alphabet()
-                    setChroma(new_alphabet)                    
+                    setTimeout(setChroma, 4000, new_alphabet)
                 }
             }
+            
             else {
                 setOpen(true)
             }
