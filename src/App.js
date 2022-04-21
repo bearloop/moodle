@@ -84,14 +84,14 @@ function App() {
                 setTimeout(setChroma, 1300, chr)
 
                 // Reset game
-                setTimeout(setHiddenWord, 4000, newRandomWord())
-                setTimeout(setTrial, 4000, 1)
-                setTimeout(setOpen, 4000, true)
+                setTimeout(setHiddenWord, 3000, newRandomWord())
+                setTimeout(setTrial, 3000, 1)
+                setTimeout(setOpen, 3000, true)
                 const new_game = starting_round()
-                setTimeout(setSummary, 4000, new_game)
-                setTimeout(setWord, 4000, new_game[1])
+                setTimeout(setSummary, 3000, new_game)
+                setTimeout(setWord, 3000, new_game[1])
                 const new_alphabet = alphabet()
-                setTimeout(setChroma, 4000, new_alphabet)
+                setTimeout(setChroma, 3000, new_alphabet)
             }
 
             else if (isl['severity']==='warning'){
