@@ -22,7 +22,7 @@ function DrawerMenu(props) {
             <List>
             {['About', 'New Game'].map((text, index) => (
               <ListItem button key={index} onClick={clickedNewGame(text)}>
-                <ListItemText sx={{marginX:8, marginY:2, display:'flex', justifyContent: 'center'}} primary={text}/>
+                <ListItemText sx={{marginX:8, marginY:2, display:'flex', justifyContent: 'center', alignItems: 'center'}} primary={text}/>
               </ListItem>))}
             </List>
            
